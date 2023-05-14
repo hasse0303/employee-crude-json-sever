@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="breadcrumb">
+    <h2>Employee / {{breadcrumb}}</h2>
+  </div>
+  <div class="emp-form">
+    <div class="emp-action">
+      <button mat-raised-button routerLink="/employee">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+      <button mat-raised-button color="primary" (click)="save()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+    </div>
+    <form [formGroup]="empForm" class="form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" placeholder="Gender">
+          <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker3" formControlName="dob">
+        <mat-datepicker-toggle matSuffix [for]="picker3">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email"
+               placeholder="Ex. pat@example.com">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Position</mat-label>
+        <mat-select formControlName="position" placeholder="Position">
+          <mat-option *ngFor="let position of positions" [value]="position">{{position}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</div>

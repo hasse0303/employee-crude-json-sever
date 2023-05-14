@@ -1,0 +1,8 @@
+<div class="dialog">
+  <h1 class="title" mat-dialog-title>Confirm</h1>
+  <div class="content" mat-dialog-content>Do you want to delete this?</div>
+  <div class="action" mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="close()">No</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="onYes()">Yes</button>
+  </div>
+</div>
