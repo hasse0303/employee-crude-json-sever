@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from './employee.service';
@@ -39,7 +40,8 @@ import { EmployeeService } from './employee.service';
     MatNativeDateModule,
     MatIconModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [EmployeeService]
 })

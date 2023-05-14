@@ -13,7 +13,7 @@
         Save
       </button>
     </div>
-    <form [formGroup]="empForm" class="form">
+    <mat-card [formGroup]="empForm" class="form">
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" placeholder="Name">
@@ -46,6 +46,6 @@
           <mat-option *ngFor="let position of positions" [value]="position">{{position}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </form>
+    </mat-card>
   </div>
 </div>
