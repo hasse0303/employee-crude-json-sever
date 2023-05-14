@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from './employee';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -19,7 +20,8 @@ export class EmployeeDetailComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   initForm() {
     this.empForm = this.formBuilder.group({
-      id: [''],
       name: [''],
       gender: [''],
       dob: [''],
@@ -42,8 +43,7 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   patchForm() {
-    const employee = this.employees.find(emp => emp.id === Number(this.empId));
-    employee && this.empForm.patchValue(employee);
+    this.employeeService.getEmployeeById(this.empId).subscribe(employee => this.empForm.patchValue(employee))
   }
 
   getEmployeeFromStorage() {
@@ -56,16 +56,15 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   create() {
-    this.employees.push({...this.empForm.value, id: Math.random()});
-    localStorage.setItem('employees', JSON.stringify(this.employees));
-    this.router.navigate(['/employee']);
+    this.employeeService.addEmployee(this.empForm.value).subscribe(() => {
+      this.router.navigate(['/employee']);
+    })
   }
 
   update() {
-    let i = this.employees.findIndex(emp => emp.id === Number(this.empId));
-    this.employees[i] = this.empForm.value;
-    localStorage.setItem('employees', JSON.stringify(this.employees));
-    this.router.navigate(['/employee']);
+    this.employeeService.updateEmployee(this.empId, this.empForm.value).subscribe(() => {
+      this.router.navigate(['/employee']);
+    });
   }
 }
 

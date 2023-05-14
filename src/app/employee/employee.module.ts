@@ -16,6 +16,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { EmployeeService } from './employee.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     CommonModule,
     EmployeeRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatTableModule,
     MatButtonModule,
     MatInputModule,
@@ -37,6 +40,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatIconModule,
     MatTooltipModule,
     MatDialogModule
-  ]
+  ],
+  providers: [EmployeeService]
 })
 export class EmployeeModule { }

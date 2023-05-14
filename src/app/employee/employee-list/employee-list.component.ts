@@ -3,6 +3,7 @@ import { Employee } from '../employee-detail/employee';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormControl } from '@angular/forms';
+import { EmployeeService } from '../employee.service';
 
 
 @Component({
@@ -15,15 +16,17 @@ export class EmployeeListComponent implements OnInit {
   dataSource: Employee[] = [];
   searchForm = new FormControl();
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private employeeService: EmployeeService
   ) { }
   ngOnInit(): void {
-    this.getEmployeeFromStorage();
+    this.getEmployeeList();
   }
 
-  getEmployeeFromStorage() {
-    const allEmployees = localStorage.getItem('employees');
-    allEmployees && (this.dataSource = JSON.parse(allEmployees));
+  private getEmployeeList() {
+    this.employeeService.getEmployee().subscribe(data => {
+      this.dataSource = data;
+    })
   }
 
   delete(id: number) {
@@ -32,24 +35,21 @@ export class EmployeeListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-       const index = this.dataSource.findIndex(emp => emp.id === id);
-       this.dataSource.splice(index, 1);
-       localStorage.setItem('employees', JSON.stringify(this.dataSource));
-       this.getEmployeeFromStorage();
+       this.employeeService.deleteEmployee(id).subscribe(() => {
+        this.getEmployeeList();
+       });
       }
     })
   }
 
   search() {
-    if(!this.searchForm.value.trim()) {
-      this.getEmployeeFromStorage();
-      return;
-    }
-    this.dataSource = this.dataSource.filter(emp => emp.name.toLowerCase().includes(this.searchForm.value.toLowerCase().trim()));
+    this.employeeService.getEmployee(this.searchForm.value).subscribe(employee => {
+      this.dataSource = employee;
+    });
   }
 
   clear() {
     this.searchForm.patchValue('');
-    this.getEmployeeFromStorage();
+    this.search();
   }
 }
