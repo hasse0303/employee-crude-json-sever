@@ -42,7 +42,6 @@ export class EmployeeListComponent implements OnInit {
     })
   }
 
-
   search() {
     this.employeeService.getEmployee(this.searchForm.value).subscribe(employee => {
       this.dataSource = employee;

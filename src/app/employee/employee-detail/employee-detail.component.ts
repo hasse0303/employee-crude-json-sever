@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from './employee';
 import { EmployeeService } from '../employee.service';
@@ -34,11 +34,11 @@ export class EmployeeDetailComponent implements OnInit {
 
   initForm() {
     this.empForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      gender: ['', Validators.required],
+      name: [''],
+      gender: [''],
       dob: [''],
-      email: ['',  Validators.required],
-      position: ['',  Validators.required]
+      email: [''],
+      position: ['']
     })
   }
 
@@ -52,10 +52,6 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   save() {
-    this.empForm.markAllAsTouched();
-    if(this.empForm.invalid) {
-      return;
-    }
     this.empId ? this.update() : this.create();
   }
 
